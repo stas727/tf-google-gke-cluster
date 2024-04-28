@@ -23,3 +23,20 @@ resource "google_container_node_pool" "main" {
     machine_type = var.GKE_MACHINE_TYPE
   }
 }
+
+module "gke_auth" {
+  depends_on = [
+    google_container_cluster.this
+  ]
+  source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
+  version              = ">= 24.0.0"
+  project_id           = var.GOOGLE_PROJECT
+  cluster_name         = google_container_cluster.this.name
+  location             = var.GOOGLE_REGION
+}
+
+resource "local_file" "kubeconfig" {
+  content  = module.gke_auth.kubeconfig_raw
+  filename = "${path.module}/kubeconfig"
+  file_permission = "0400"
+}
