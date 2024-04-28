@@ -26,3 +26,9 @@ variable "CLUSTER_NAME" {
   default     = "gbot"
   description = "Cluster name"
 }
+
+variable "GKE_POOL_NAME" {
+  type        = string
+  default     = "main"
+  description = "GKE pool name"
+}
