@@ -7,7 +7,6 @@ resource "google_container_cluster" "this" {
   name     = var.CLUSTER_NAME
   location = var.GOOGLE_REGION
   remove_default_node_pool = true
-  deletion_protection      = false
   initial_node_count       = 1
 
   node_config {
